@@ -8,6 +8,8 @@ while True:
 
     if not ret:
         break
+    
+    height, width, _ = frame.shape
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -29,6 +31,17 @@ while True:
             x, y, w, h = cv2.boundingRect(contour)
             center_x = x + w // 2
             center_y = y + h // 2
+            camera_center = width // 2
+   
+            tolerance = 80
+            if center_x < camera_center - tolerance:
+                position = "LEFT"
+            elif center_x > camera_center + tolerance:
+                position = "RIGHT"
+   
+            else:
+                position = "CENTER"
+    
 
             cv2.rectangle(
                 frame,
@@ -44,6 +57,16 @@ while True:
                 5,
                 (0,0, 255),
                 -1
+            )
+
+            cv2.putText(
+                frame,
+                position,
+                (x,y - 10),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (255, 255, 255),
+                2
             )
 
     cv2.imshow("Camera", frame)
