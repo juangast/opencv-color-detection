@@ -36,11 +36,15 @@ while True:
             tolerance = 80
             if center_x < camera_center - tolerance:
                 position = "LEFT"
+                command = "TURN LEFT"
+
             elif center_x > camera_center + tolerance:
                 position = "RIGHT"
+                command = "TURN RIGHT"
    
             else:
                 position = "CENTER"
+                command = "MOVE FORWARD"
     
 
             cv2.rectangle(
@@ -68,6 +72,17 @@ while True:
                 (255, 255, 255),
                 2
             )
+            
+            cv2.putText(
+                frame,
+                command,
+                (20, 40),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1,
+                (255,255,255),
+                2
+ 
+                )              
 
     cv2.imshow("Camera", frame)
     cv2.imshow("HSV", hsv)
