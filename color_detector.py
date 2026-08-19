@@ -27,6 +27,8 @@ while True:
 
         if area > 500:
             x, y, w, h = cv2.boundingRect(contour)
+            center_x = x + w // 2
+            center_y = y + h // 2
 
             cv2.rectangle(
                 frame,
@@ -34,6 +36,14 @@ while True:
                 (x + w, y + h),
                 (0, 255, 0),
                 2
+            )
+            
+            cv2.circle(
+                frame,
+                (center_x, center_y),
+                5,
+                (0,0, 255),
+                -1
             )
 
     cv2.imshow("Camera", frame)
